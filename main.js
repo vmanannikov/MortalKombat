@@ -4,7 +4,7 @@ const player1 = {
     img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
     weapon: ['harpoon', 'skull', 'fire'],
     attack: function (){
-        console.log(player1.name + ' Fight...');
+        console.log(this.name + ' Fight...');
     }
 };
 
@@ -14,9 +14,11 @@ const player2 = {
     img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
     weapon: ['freeze', 'ice-rain', 'ice-arrow'],
     attack: function (){
-        console.log(player2.name + ' Fight...');
+        console.log(this.name + ' Fight...');
     }
 };
+
+const $arenas = document.querySelector('.arenas');
 
 function createPlayer(player, object){
   const $playerDiv = document.createElement('div');
@@ -45,9 +47,7 @@ function createPlayer(player, object){
   $progressDiv.appendChild($nameDiv);
   $characterDiv.appendChild($img);
 
-  const $arenas = document.querySelector('.arenas');
   $arenas.appendChild($playerDiv);
-
 };
 
 createPlayer('player1', player1);
