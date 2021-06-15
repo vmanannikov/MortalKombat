@@ -73,8 +73,6 @@ const player2 = {
     renderHP
 };
 
-generateLogs('start', player1.name, player2.name);
-
 function attack() {
     console.log(this.name + '  Fight...');
 };
@@ -111,6 +109,8 @@ function createPlayer(object){
   $progressDiv.appendChild($nameDiv);
   $characterDiv.appendChild($img);
 
+  generateLogs('start', player1.name, player2.name);
+
   return $playerDiv;
 };
 
@@ -143,6 +143,7 @@ function playerWins(name){
         $loseTitle.innerText = name + ' wins';
     } else {
         $loseTitle.innerText = 'draw';
+        generateLogs('draw');
     }
     return $loseTitle;
 };
@@ -159,27 +160,6 @@ function createReloadButton(){
     $reloadDiv.appendChild($button);
     $arenas.appendChild($reloadDiv);
 };
-
-/*$randomButton.addEventListener('click', function (){
-    player1.changeHP(randNum(20));
-    player1.renderHP();
-
-    player2.changeHP(randNum(20));
-    player2.renderHP();
-
-    if(player1.hp === 0 || player2.hp === 0){
-        $randomButton.disabled = true;
-        createReloadButton();
-    }
-
-    if(player1.hp === 0 &&  player1.hp < player2.hp){
-        $arenas.appendChild(playerWins(player2.name));
-    } else if (player2.hp === 0 && player2.hp < player1.hp){
-        $arenas.appendChild(playerWins(player1.name));
-    } else if (player1.hp === 0 && player2.hp === 0){
-        $arenas.appendChild(playerWins());
-    }
-});*/
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
@@ -235,31 +215,40 @@ function generateLogs (type, player1, player2) {
     let stringNumLog = 0;
 
     for(let i = 0; i < logs.length; i++){
+        console.log('#### I: ', i);
         for (let j = 0; j < logs[i].length; j++){
             stringNumLog = j;
-            console.log('### J:', stringNumLog);
+            console.log('### J:', j);
         }
     }
 
     switch (type) {
         case 'start':
-            text = logs[type][randNum(stringNumLog)].replace('[time]', getDateTime()).replace('[player1]', player1.name).replace('[player2]', player2.name);
+            text = logs[type][randNum(stringNumLog)]
+                .replace('[time]', getDateTime)
+                .replace('[player1]', player1.name)
+                .replace('[player2]', player2.name);
             break;
-        case 'hit':
-            text = logs[type][randNum(stringNumLog)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
+       /* case 'hit':
+            text = logs[type][randNum(stringNumLog)]
+                .replace('[playerKick]', player1.name)
+                .replace('[playerDefence]', player2.name);
             break;
         case 'defence':
-            text = logs[type][randNum(stringNumLog)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
+            text = logs[type][randNum(stringNumLog)]
+                .replace('[playerKick]', player1.name)
+                .replace('[playerDefence]', player2.name);
             break;
         case 'end':
-            text = logs[type][randNum(stringNumLog)].replace('[playerWins]', player1.name).replace('[playerLose]', player2.name);
-            break;
+            text = logs[type][randNum(stringNumLog)]
+                .replace('[playerWins]', player1.name)
+                .replace('[playerLose]', player2.name);
+            break;*/
         case 'draw':
             text = logs[type][0];
             break;
-    }
+    };
 
-    //logs[type][0].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
     const el = `<p>${text}</p>`;
     $chat.insertAdjacentHTML('afterbegin', el);
 };
