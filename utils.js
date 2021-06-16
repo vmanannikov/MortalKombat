@@ -2,4 +2,8 @@ function randNum(n){
     return Math.ceil(Math.random() * n);
 };
 
-export default randNum;
+function getDateTime(){
+    return new Date().toTimeString().slice(0, 5);
+};
+
+export  { randNum, getDateTime };
