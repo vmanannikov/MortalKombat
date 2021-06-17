@@ -22,24 +22,4 @@ const player2 = {
     renderHP
 };
 
-
-function elHP(){
-    return document.querySelector('.player' + this.player + ' .life');
-    console.log('####: elHP: '+ document.querySelector('.player' + this.player));
-};
-
-function renderHP(){
-    console.log('####: Input div: ' + this.elHP());
-    this.elHP().style.width = this.hp + '%';
-};
-
-function changeHP(num){
-    this.hp -= randNum(num);
-
-    if(this.hp < 0){
-        this.hp = 0;
-    }
-    console.log('#### changeHP: ' + this.hp)
-};
-
-export { player1, player2, elHP, renderHP, changeHP};
+export { player1, player2 };
