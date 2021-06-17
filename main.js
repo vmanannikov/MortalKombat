@@ -1,41 +1,27 @@
 import { player1, player2} from "./player.js";
-import {generateLogs, logs} from "./logs.js";
+import { generateLogs } from "./logs.js";
+import Player from "./Player";
+import {enemyAttack, playerAttack} from "./attack.js";
+import {showResult} from "./result.js";
 
 const $formFight = document.querySelector('.control');
 const $arenas = document.querySelector('.arenas');
 
-function createElement (tag, className) {
-    const $tag = document.createElement(tag);
+const player1 = new Player({
+    player: 1,
+    name: 'Scorpion',
+    hp: 100,
+    img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
+    rootSelector: 'arenas',
+});
 
-    if(className){
-        $tag.classList.add(className);
-    }
-
-    return $tag;
-};
-
-function createPlayer(object){
-  const $playerDiv = createElement('div', 'player' + object.player);
-  const $progressDiv = createElement('div', 'progressbar');
-  const $lifeDiv = createElement('div', 'life');
-  $lifeDiv.style.width = object.hp + '%';
-
-  const $nameDiv = createElement('div', 'name');
-  $nameDiv.innerText = object.name;
-
-  const $characterDiv = createElement('div', 'character');
-
-  const $img = createElement('img')
-  $img.src = object.img;
-
-  $playerDiv.appendChild($progressDiv);
-  $playerDiv.appendChild($characterDiv);
-  $progressDiv.appendChild($lifeDiv);
-  $progressDiv.appendChild($nameDiv);
-  $characterDiv.appendChild($img);
-
-  return $playerDiv;
-};
+const player2 = new Player({
+    player: 2,
+    name: 'Sub-Zero',
+    hp: 100,
+    img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
+    rootSelector: 'arenas',
+});
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
@@ -64,4 +50,12 @@ $formFight.addEventListener('submit', function (e){
     showResult();
 });
 
-generateLogs('start', player1.name, player2.name);
+
+function init() {
+    player1.createPlayer();
+    player2.createPlayer();
+
+    generateLogs('start', player1.name, player2.name);
+};
+
+init();
